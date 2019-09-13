@@ -5,6 +5,7 @@ import (
 	"crypto"
 	"crypto/rand"
 	"errors"
+
 	// import supported crypto hash function
 	_ "crypto/sha1"
 	_ "crypto/sha256"
@@ -156,10 +157,10 @@ func (s *signer) Sign(data []byte) (string, error) {
 func newSignature() *Signature {
 	signature := &Signature{}
 	signature.SignedInfo.CanonicalizationMethod.Algorithm =
-		"http://www.w3.org/2001/10/xml-exc-c14n#"
+		"http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
 	transforms := &signature.SignedInfo.Reference.Transforms.Transform
 	*transforms = append(*transforms, Algorithm{"http://www.w3.org/2000/09/xmldsig#enveloped-signature"})
-	*transforms = append(*transforms, Algorithm{"http://www.w3.org/2001/10/xml-exc-c14n#"})
+	*transforms = append(*transforms, Algorithm{"http://www.w3.org/TR/2001/REC-xml-c14n-20010315"})
 	return signature
 }
 
