@@ -17,7 +17,7 @@ import (
 // Signer is used to create a Signature for the provided object.
 type Signer interface {
 	Sign([]byte) (string, error)
-	CreateSignature(interface{}) (*Signature, error)
+	CreateSignature(interface{}, string) (*Signature, error)
 	Algorithm() string
 }
 
@@ -113,7 +113,7 @@ func (s *signer) Algorithm() string {
 	return s.sigAlg.name
 }
 
-func (s *signer) CreateSignature(data interface{}) (*Signature, error) {
+func (s *signer) CreateSignature(data interface{}, ID string) (*Signature, error) {
 	signature := newSignature()
 	signature.SignedInfo.SignatureMethod.Algorithm = s.sigAlg.name
 	signature.SignedInfo.Reference.DigestMethod.Algorithm = s.digestAlg.name
@@ -124,6 +124,8 @@ func (s *signer) CreateSignature(data interface{}) (*Signature, error) {
 	}
 	if id != "" {
 		signature.SignedInfo.Reference.URI = "#" + id
+	} else if ID != "" {
+		signature.SignedInfo.Reference.URI = "#" + ID
 	}
 	// calculate the digest
 	digest := s.digest(canonData)
