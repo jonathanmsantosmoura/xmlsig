@@ -9,7 +9,7 @@ Schema for XML Signatures, http://www.w3.org/2000/09/xmldsig.
 
 // Signature element is the root element of an XML Signature.
 type Signature struct {
-	XMLName        xml.Name `xml:"Signature"`
+	XMLName        xml.Name `xml:"http://www.w3.org/2000/09/xmldsig# Signature"`
 	SignedInfo     SignedInfo
 	SignatureValue string `xml:"SignatureValue"`
 	KeyInfo        KeyInfo
@@ -52,6 +52,6 @@ type KeyInfo struct {
 
 // X509Data element within KeyInfo contains one an X509 certificate
 type X509Data struct {
-	XMLName         xml.Name `xml:"http://www.w3.org/2000/09/xmldsig# X509Data"`
+	XMLName         xml.Name `xml:"X509Data"`
 	X509Certificate string   `xml:"X509Certificate"`
 }
