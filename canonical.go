@@ -36,7 +36,7 @@ func canonicalize(data interface{}) ([]byte, string, error) {
 		currentNs, err := namespaces.Top()
 		if err != nil {
 			// No namespaces yet declare ours
-			fmt.Fprintf(writer, " %s=\"%s\"", "xmlns", start.Name.Space)
+			//fmt.Fprintf(writer, " %s=\"%s\"", "xmlns", start.Name.Space)
 		} else {
 			// Different namespace declare ours
 			if currentNs != start.Name.Space {
