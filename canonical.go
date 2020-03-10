@@ -36,11 +36,11 @@ func canonicalize(data interface{}) ([]byte, string, error) {
 		currentNs, err := namespaces.Top()
 		if err != nil {
 			// No namespaces yet declare ours
-			//fmt.Fprintf(writer, " %s=\"%s\"", "xmlns", start.Name.Space)
+			fmt.Fprintf(writer, " %s=\"%s\"", "xmlns", start.Name.Space)
 		} else {
 			// Different namespace declare ours
 			if currentNs != start.Name.Space {
-				//fmt.Fprintf(writer, " %s=\"%s\"", "xmlns", start.Name.Space)
+				fmt.Fprintf(writer, " %s=\"%s\"", "xmlns", start.Name.Space)
 			}
 		}
 		namespaces.Push(start.Name.Space)
@@ -93,7 +93,11 @@ func canonicalize(data interface{}) ([]byte, string, error) {
 		}
 	}
 	outWriter.Flush()
-	return out.Bytes(), id, nil
+
+	output, err := xml.Marshal(data)
+
+	//return out.Bytes(), id, nil
+	return output, id, nil
 }
 
 // Attributes must be sorted as part of canonicalization. This type implements sort.Interface for a slice of xml.Attr.
