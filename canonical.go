@@ -76,6 +76,7 @@ func canonicalize(data interface{}) ([]byte, string, error) {
 			if firstElem {
 				firstElem = false
 				for i := range t.Attr {
+					fmt.Println(t.Attr[i].Name.Local)
 					if "Id" == t.Attr[i].Name.Local {
 						id = t.Attr[i].Value
 					}
