@@ -70,6 +70,7 @@ func pickSignatureAlgorithm(certType x509.PublicKeyAlgorithm, alg string) (*algo
 	default:
 		return nil, errors.New("xmlsig needs some work to support your certificate")
 	}
+
 	return &algorithm{alg, hash}, nil
 }
 
@@ -153,11 +154,13 @@ func (s *signer) Sign(data []byte) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return base64.StdEncoding.EncodeToString(sig), nil
 }
 
 func newSignature() *Signature {
 	signature := &Signature{}
+	signature.Xmls = "http://www.w3.org/2000/09/xmldsig#"
 	signature.SignedInfo.CanonicalizationMethod.Algorithm =
 		"http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
 	transforms := &signature.SignedInfo.Reference.Transforms.Transform
